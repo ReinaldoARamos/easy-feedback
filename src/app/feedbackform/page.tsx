@@ -8,17 +8,17 @@ export default function FeedbackForm() {
     <div className=" mr-5 my-4 h-screen bg-slate-200 ">
       <form className="text-black pt-9  px-4  gap-7 flex flex-col ">
         <div>
-          <h1 className="text-2xl font-bold">Titulo</h1>
+          <h1 className="text-2xl  font-bold">Titulo</h1>
           <input
             placeholder="Digite o título do feedback"
-            className="bg-white w-[496px] mt-3  rounded-md p-1 outline-0"
+            className="bg-white w-full lg:w-[496px] mt-3  rounded-md p-1 outline-0"
           />
         </div>
         <div>
           <h1 className="text-2xl font-bold">Feedback</h1>
           <textarea
             placeholder="escreva o feedback"
-            className="bg-white w-[496px]  resize-none h-28 rounded-md  mt-3 p-1 outline-0"
+            className="bg-white w-full lg:w-[496px] resize-none h-28 rounded-md  mt-3 p-1 outline-0"
           />
         </div>
         <div>

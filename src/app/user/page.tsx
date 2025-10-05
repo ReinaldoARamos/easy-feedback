@@ -5,7 +5,7 @@ import { FeedbackCard } from "@/app/components/FeedbackCard";
 
 export default function User() {
   return (
-    <div className=" mr-5 my-4 h-screen bg-slate-200 ">
+    <div className=" mr-5 my-4 h-full bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
         <h1 className="text-[32px] font-bold text-black">Reinaldo Ramos</h1>
         <span className="text-md text-black">Admin</span>
