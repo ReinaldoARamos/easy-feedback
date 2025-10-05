@@ -1,6 +1,6 @@
 "use cliente";
 
-import { HamburgerIcon, Menu } from "lucide-react";
+import { HamburgerIcon, Menu, User } from "lucide-react";
 import { DropdownMenu } from "radix-ui";
 import { useState } from "react";
 export function HamguerguerMenu() {
@@ -20,16 +20,13 @@ export function HamguerguerMenu() {
       </DropdownMenu.Trigger>
 
       <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="min-w-[220px] rounded-md bg-white p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade data-[side=right]:animate-slideLeftAndFade data-[side=top]:animate-slideDownAndFade"
-          sideOffset={5}
-        >
-          <DropdownMenu.Item className="group relative flex h-[25px] select-none items-center rounded-[3px] pl-[25px] pr-[5px] text-[13px] leading-none text-violet11 outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[disabled]:text-mauve8 data-[highlighted]:text-violet1">
+      <DropdownMenu.Content
+  className="dropdown-content lg:hidden min-w-[220px] rounded-lg bg-slate-400 p-[5px]"
+  sideOffset={5}
+>
+          <DropdownMenu.Item className="group relative flex h-[25px] items-center rounded-[3px] pl-[25px] pr-[5px] text-md leading-none text-white font-bold outline-none">
             New Tab{" "}
-            <div className="ml-auto pl-5 text-mauve11 group-data-[disabled]:text-mauve8 group-data-[highlighted]:text-white">
-              ⌘+T
-            </div>
-            
+           <User className="ml-auto pl-5 font-bold " size={40}/>
           </DropdownMenu.Item>
 
           <DropdownMenu.Arrow className="fill-white" />
