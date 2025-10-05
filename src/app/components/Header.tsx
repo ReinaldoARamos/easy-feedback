@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
+import { HamguerguerMenu } from "./DropdownMenu";
 
 export function Header() {
   const pathname = usePathname();
@@ -17,27 +18,24 @@ export function Header() {
 
   return (
     <div className="mr-5 flex justify-between items-center bg-slate-200 py-3 px-3 mt-3">
-      <h1 className="text-[32px] font-bold text-black">{title}</h1>
+      <div className="flex gap-2 items-center">
+        {" "}
+        <HamguerguerMenu />
+        <h1 className="text-[32px] font-bold text-black">{title}</h1>{" "}
+      </div>
 
       <div className="flex items-center gap-4">
         {title === "Feedbackform" ? (
           <></>
         ) : (
-         <>
-          <Link
-            href={"/feedbackform"}
-            className="bg-purple-500 text-white hidden lg:block rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
-          >
-            Novo Feedback +
-          </Link>
-          <Link
-  href="/feedbackform"
-  className="bg-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center hover:scale-105 transition-transform duration-300 font-bold"
->
-  +
-</Link>
-
-         </>
+          <>
+            <Link
+              href={"/feedbackform"}
+              className="bg-purple-500 text-white hidden lg:block rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
+            >
+              Novo Feedback +
+            </Link>
+          </>
         )}
 
         <div className="flex items-center gap-3">
