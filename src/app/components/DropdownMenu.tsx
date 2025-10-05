@@ -29,6 +29,7 @@ export function HamguerguerMenu() {
             <div className="ml-auto pl-5 text-mauve11 group-data-[disabled]:text-mauve8 group-data-[highlighted]:text-white">
               ⌘+T
             </div>
+            
           </DropdownMenu.Item>
 
           <DropdownMenu.Arrow className="fill-white" />
