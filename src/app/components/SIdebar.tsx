@@ -11,11 +11,11 @@ import {
 export function Sidebar() {
   return (
     <div
-      className="fixed top-3 left-5 bottom-3 w-64
+      className="fixed top-3 left-5 bottom-3 w-64 hidden
                  bg-gradient-to-b from-[rgba(41,33,162,0.5)]
                  via-[rgba(41,33,162,1)]
                  to-[#4B17E8]
-                 rounded-lg flex flex-col"
+                 rounded-lg lg:flex flex-col"
     >
       {/* Topo: Logo */}
       <div className="flex justify-center py-6 items-center gap-1">

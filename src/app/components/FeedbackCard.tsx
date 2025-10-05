@@ -20,9 +20,14 @@ export function FeedbackCard() {
             />
 
             <div className="flex flex-col gap-1.5 flex-1 max-w-[348px]">
-              <h1 className="text-black font-bold text-[16px]">
+           <div className="flex gap-1">
+               <h1 className="text-black font-bold text-[16px]">
                 Teste de feedback
               </h1>
+               <span className="flex align-text-bottom gap-1 text-xs items-center leading-none">
+              <Clock size={12} /> Postado há 3 horas
+            </span>
+           </div>
               <span className="text-xs break-words">
                 {texto.length > 197 ? (
                   <>
@@ -46,9 +51,7 @@ export function FeedbackCard() {
             <span className="flex gap-1 items-center leading-none">
               <ThumbsUpIcon size={12} /> Curtidas
             </span>
-            <span className="flex gap-1 items-center leading-none">
-              <Clock size={12} /> Postado há 3 horas
-            </span>
+           
             <span className="flex gap-1 items-center leading-none">
               <Star size={12} /> Nota : 10
             </span>

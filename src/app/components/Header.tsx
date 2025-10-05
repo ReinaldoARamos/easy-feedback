@@ -23,12 +23,21 @@ export function Header() {
         {title === "Feedbackform" ? (
           <></>
         ) : (
+         <>
           <Link
             href={"/feedbackform"}
-            className="bg-purple-500 text-white rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
+            className="bg-purple-500 text-white hidden lg:block rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
           >
             Novo Feedback +
           </Link>
+          <Link
+  href="/feedbackform"
+  className="bg-purple-500 text-white rounded-full w-12 h-12 flex items-center justify-center hover:scale-105 transition-transform duration-300 font-bold"
+>
+  +
+</Link>
+
+         </>
         )}
 
         <div className="flex items-center gap-3">

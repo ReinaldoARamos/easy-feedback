@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <Sidebar />
         {/* container para o conteúdo */}
-        <main className="ml-[276px] pl-4">
+        <main className="lg:ml-[276px] pl-4">
           <Header />
           {children}
         </main>
