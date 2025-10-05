@@ -8,9 +8,9 @@ export function FeedbackCard() {
     "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
   return (
     <Dialog.Root>
-      <div className="text-black   w-full rounded-sm bg-white py-2 px-2">
-        <div className="flex gap-2.5 w-full  justify-between items-center ">
-          <div className="flex gap-2.5 items-center">
+      <div className="text-black   w-full rounded-sm  bg-white py-2 px-2">
+        <div className="flex gap-2.5 w-full md:flex-row flex-col  justify-between md:items-center ">
+          <div className="flex gap-2.5 flex-col md:flex-row md:item-center ">
             <img
               width={85}
               height={85}
@@ -24,11 +24,12 @@ export function FeedbackCard() {
                <h1 className="text-black font-bold text-[16px]">
                 Teste de feedback
               </h1>
-               <span className="flex align-text-bottom gap-1 text-xs items-center leading-none">
+               <span className="flex align-text-bottom gap-1 lg:text-[10px] text-xs items-center leading-none">
               <Clock size={12} /> Postado há 3 horas
             </span>
            </div>
-              <span className="text-xs break-words">
+<span className="text-xs break-words ">
+
                 {texto.length > 197 ? (
                   <>
                     {texto.slice(0, 197)}{" "}

@@ -3,7 +3,7 @@ import { FeedbackCard } from "./components/FeedbackCard";
 
 export default function Home() {
   return (
-    <div className=" mr-5 my-4 h-screen bg-slate-200 ">
+    <div className=" mr-5 my-4 h-full bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
         <FeedbackCard />
         <FeedbackCard />
