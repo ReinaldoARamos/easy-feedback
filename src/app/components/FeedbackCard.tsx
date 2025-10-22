@@ -14,8 +14,7 @@ interface FeecbackCardProps {
 
 }
 export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rating, title} : FeecbackCardProps) {
-  const texto: string =
-    "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
   return (
     <Dialog.Root>
       <div className="text-black   w-full rounded-sm  bg-white py-2 px-2">
@@ -52,7 +51,7 @@ export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rati
                     </Dialog.Trigger>
                   </>
                 ) : (
-                  texto
+                  feecback
                 )}
               </span>
             </div>
@@ -70,8 +69,8 @@ export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rati
       </div>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 opacity-50 bg-slate-200 data-[state=open]:animate-overlayShow" />
-        <Dialog.Content className="fixed left-1/2 bg-slate-500 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-gray1 p-[25px] shadow-[var(--shadow-6)] focus:outline-none data-[state=open]:animate-contentShow">
+        <Dialog.Overlay className="fixed inset-0 opacity-50 bg-slate-200" />
+        <Dialog.Content className="fixed left-1/2 bg-slate-500 top-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-gray1 p-[25px] shadow-[var(--shadow-6)] focus:outline-none ">
           <Dialog.Title className="m-0 text-lg font-bold text-white">
             {title}
           </Dialog.Title>
