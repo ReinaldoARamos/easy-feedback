@@ -5,7 +5,7 @@ import { FeedbackCard } from "@/app/components/FeedbackCard";
 
 export default function User() {
   return (
-    <div className=" mr-5 my-4 h-full bg-slate-200 ">
+    <div className=" mr-5 my-4  flex flex-col min-h-screen  my-3  bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
         <h1 className="text-[32px] font-bold text-black">Reinaldo Ramos</h1>
         <span className="text-md text-black">Admin</span>
@@ -21,11 +21,7 @@ export default function User() {
           <h1 className="text-[32px] font-bold text-black">Meus feedbacks</h1>
         </div>
         <div className="pt-4  gap-3 flex flex-col ">
-          <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
+         <FeedbackCard feecback={""} avatar_url={""} created_at={""} title={""} rating={10} likesCount={3} />
         </div>
         <div className="flex  items-center justify-center gap-1  text-black mt-8">
           <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">

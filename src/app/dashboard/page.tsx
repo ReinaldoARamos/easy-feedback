@@ -10,7 +10,7 @@ const data = [
 ];
 export default function Dashboard() {
   return (
-    <div className=" mr-5 my-4 h-full bg-slate-200 ">
+    <div className=" flex flex-col min-h-screen mr-5 my-3 bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
         <h1 className="text-[32px] font-bold text-black">
           Gráfico dos feedbacks
@@ -37,11 +37,8 @@ export default function Dashboard() {
           </h1>
         </div>
         <div className="pt-4  gap-3 flex flex-col ">
-          <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
-          <FeedbackCard />
+          <FeedbackCard feecback={""} avatar_url={""} created_at={""} title={""} rating={10} likesCount={3} />
+         
         </div>
       </div>
     </div>
