@@ -1,43 +1,56 @@
-import Image from "next/image";
-import { FeedbackCard } from "./components/FeedbackCard";
+'use client'
 
+import { useQuery } from '@tanstack/react-query'
+import { FeedbackCard } from './components/FeedbackCard'
+
+
+interface FeedbackDataProps {
+  id: string
+comment: string,
+avatar_url: string,
+createdAt: string,
+feedbackTitle: string,
+userRating: number,
+likesCount: number
+
+user:{
+  name : string,
+  photo: string
+}
+}
 export default function Home() {
+  const { isPending, error, data } = useQuery<FeedbackDataProps[]>({
+    queryKey: ['feedbacks'],
+    queryFn: () =>
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`).then((res) => res.json()),
+  })
+
+
+  console.log( data)
+
+  if (isPending) return <p>Carregando...</p>
+  if (error) return <p>Erro ao carregar feedbacks!</p>
+
   return (
-    <div className="flex flex-col min-h-screen mr-5 my-3   bg-slate-300">
+    <div className="flex flex-col min-h-screen mr-5 my-3 bg-slate-300">
       <main className="flex-1 pt-9 px-4 gap-3 flex flex-col">
-        <FeedbackCard
-          feecback="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-"
-          avatar_url="https://preview.redd.it/neaijti7dns91.png?width=921&format=png&auto=webp&s=f172c0f39bdb89e497786744b06e3567f92d437f"
-          created_at="postado há 3 horas"
-          title="Teste"
-          rating={10}
-          likesCount={3}
-        />
-        
+{data.map((item) => (
+  <FeedbackCard
+    key={item.id}
+    comment={item.comment}
+    avatar_url={item.user.photo} // substitua se tiver avatar no backend
+    created_at={item.createdAt}
+    title={item.feedbackTitle}
+    rating={item.userRating}
+    likesCount={item.likesCount}
+  />
+))}
+
       </main>
 
-      <div className="flex items-center justify-center gap-1 pb-3 text-black mt-auto ">
-        <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-          1
-        </span>
-        <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-          2
-        </span>
-        <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-          3
-        </span>
-        <span>...</span>
-        <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-          50
-        </span>
-        <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-          51
-        </span>
-        <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-          53
-        </span>
+      <div className="flex items-center justify-center gap-1 pb-3 text-black mt-auto">
+        <span className="w-10 h-10 bg-slate-500 rounded-full grid place-items-center">1</span>
       </div>
     </div>
-  );
+  )
 }

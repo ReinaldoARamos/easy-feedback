@@ -50,6 +50,7 @@ body {
 
 /* Radix DropdownMenu / Dialog */
 
+
 /*
 [data-state="open"] {
   animation: fade-in-up 0.2s ease-out forwards;
@@ -58,4 +59,5 @@ body {
 [data-state="closed"] {
   animation: fade-out-down 0.2s ease-in forwards;
 }
-/*
+
+*/

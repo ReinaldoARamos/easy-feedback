@@ -1,8 +1,14 @@
+
 import type { Metadata } from "next";
+
+
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "./components/SIdebar";
 import { Header } from "./components/Header";
+import { QueryComponent } from "./components/QueryComponent/Query";
+
 
 
 const inter = Inter({
@@ -27,7 +33,9 @@ export default function RootLayout({
         {/* container para o conteúdo */}
         <main className="lg:ml-[276px] pl-4">
           <Header />
-          {children}
+       <QueryComponent >
+        {children}
+       </QueryComponent>
         </main>
       </body>
     </html>

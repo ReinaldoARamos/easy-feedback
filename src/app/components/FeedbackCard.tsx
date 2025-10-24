@@ -5,7 +5,7 @@ import { Dialog } from "radix-ui";
 
 
 interface FeecbackCardProps {
-  feecback: string,
+  comment: string,
   avatar_url: string
   created_at: string,
   title: string,
@@ -13,7 +13,7 @@ interface FeecbackCardProps {
   likesCount: number
 
 }
-export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rating, title} : FeecbackCardProps) {
+export function FeedbackCard({avatar_url, created_at, comment, likesCount, rating, title} : FeecbackCardProps) {
 
   return (
     <Dialog.Root>
@@ -39,9 +39,9 @@ export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rati
            </div>
 <span className="text-xs break-words ">
 
-                {feecback.length > 197 ? (
+                {comment.length > 197 ? (
                   <>
-                    {feecback.slice(0, 197)}{" "}
+                    {comment.slice(0, 197)}{" "}
                     <Dialog.Trigger asChild>
                       <button
                         className="text-xs text-purple-500 font-semibold  hover:cursor-pointer duration-300 transition-all hover:text-purple-400 "
@@ -51,7 +51,7 @@ export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rati
                     </Dialog.Trigger>
                   </>
                 ) : (
-                  feecback
+                  comment
                 )}
               </span>
             </div>
@@ -79,7 +79,7 @@ export function FeedbackCard({avatar_url, created_at, feecback, likesCount, rati
           </span>
 
           <div className="mt-6  gap-5 mb-5 break-words  text-md leading-normal ">
-            {feecback}
+            {comment}
           </div>
 
           <Dialog.Close asChild>
