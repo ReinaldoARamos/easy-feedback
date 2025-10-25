@@ -56,31 +56,17 @@ export default function User() {
                 created_at={item.createdAt}
                 title={item.feedbackTitle}
                 rating={item.userRating}
-                likesCount={item.likesCount} author={item.user.name}              />
+                likesCount={item.likesCount}
+                author={item.user.name}
+              />
             );
           })}
         </div>
-        <div className="flex  items-center justify-center gap-1  text-black mt-8">
-          <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-            1
-          </span>
-          <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-            2
-          </span>
-          <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-            3
-          </span>
-          <span>...</span>
-          <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-            50
-          </span>
-          <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-            51
-          </span>
-          <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">
-            53
-          </span>
-        </div>
+      </div>
+      <div className="flex items-center justify-center gap-1 pb-3 text-black mt-auto">
+        <span className="w-10 h-10 bg-slate-500 rounded-full grid place-items-center">
+          1
+        </span>
       </div>
     </div>
   );
