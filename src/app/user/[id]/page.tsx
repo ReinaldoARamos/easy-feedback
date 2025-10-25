@@ -2,13 +2,39 @@
 "use client";
 
 import { FeedbackCard } from "@/app/components/FeedbackCard";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 
+interface FeedbackDataProps {
+  id: string;
+  comment: string;
+  avatar_url: string;
+  createdAt: string;
+  feedbackTitle: string;
+  userRating: number;
+  likesCount: number;
+
+  user: {
+    name: string;
+    photo: string;
+  };
+}
 export default function User() {
+  const params = useParams();
+  const userId = params.id as string; // 👈 pega o ID da URL (ex: /user/123)
+
+  const { isPending, error, data } = useQuery<FeedbackDataProps[]>({
+    queryKey: ["feedbacks"],
+    queryFn: () =>
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/user-feedback?userId=${userId}`
+      ).then((res) => res.json()),
+  });
+
   return (
     <div className=" mr-5  flex flex-col min-h-screen  my-3  bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
         <h1 className="text-[32px] font-bold text-black">Reinaldo Ramos</h1>
-        <span className="text-md text-black">Admin</span>
 
         <img
           width={264}
@@ -21,7 +47,18 @@ export default function User() {
           <h1 className="text-[32px] font-bold text-black">Meus feedbacks</h1>
         </div>
         <div className="pt-4  gap-3 flex flex-col ">
-         <FeedbackCard feecback={""} avatar_url={""} created_at={""} title={""} rating={10} likesCount={3} />
+          {data?.map((item) => {
+            return (
+              <FeedbackCard
+                key={item.id}
+                comment={item.comment}
+                avatar_url={item.user.photo}
+                created_at={item.createdAt}
+                title={item.feedbackTitle}
+                rating={item.userRating}
+                likesCount={item.likesCount} author={item.user.name}              />
+            );
+          })}
         </div>
         <div className="flex  items-center justify-center gap-1  text-black mt-8">
           <span className="w-10 h-10 hover:cursor-pointer transition-all duration-300 hover:bg-slate-400 bg-slate-500 rounded-full grid place-items-center">

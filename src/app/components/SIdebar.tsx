@@ -4,7 +4,6 @@ import {
   LayoutDashboard,
   LogOut,
   MessageSquareMore,
-
   User,
 } from "lucide-react";
 
@@ -49,7 +48,7 @@ export function Sidebar() {
           </Link>
 
           <Link
-            href={"/user"}
+            href={`user/${1}`}
             className="flex items-center w-full max-w-[150px] gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
           >
             <User size={16} className="w-6 flex-shrink-0" />

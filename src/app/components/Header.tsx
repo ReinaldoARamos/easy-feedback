@@ -2,10 +2,13 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { HamguerguerMenu } from "./DropdownMenu";
 
 export function Header() {
+  const params = useParams();
+  const userId = params.id as string; // 👈 pega o ID da URL (ex: /user/123)
+
   const pathname = usePathname();
 
   const capitalize = (str: string) => {
@@ -13,7 +16,10 @@ export function Header() {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
-  const title = capitalize(pathname.replace("/", "").replace("-", " "));
+  const title = capitalize(pathname.replace("/", "").replace("-", " ")).replace(
+    `/${userId}`,
+    ""
+  );
   console.log(title);
 
   return (
