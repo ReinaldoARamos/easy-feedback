@@ -56,14 +56,13 @@ export default function User() {
                 created_at={item.createdAt}
                 title={item.feedbackTitle}
                 rating={item.userRating}
-                likesCount={item.likesCount}
-                author={item.user.name}
-              />
+                likesCount={item.likesCount} author={item.user.name}              />
             );
           })}
         </div>
+      
       </div>
-      <div className="flex items-center justify-center gap-1 pb-3 text-black mt-auto">
+         <div className="flex items-center justify-center gap-1 pb-3 text-black mt-auto">
         <span className="w-10 h-10 bg-slate-500 rounded-full grid place-items-center">
           1
         </span>

@@ -2,6 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { FeedbackCard } from "./components/FeedbackCard";
+import { formatDate } from "./utils/DataConverterFunction";
 
 interface FeedbackDataProps {
   id: string;
@@ -36,8 +37,8 @@ export default function Home() {
           <FeedbackCard
             key={item.id}
             comment={item.comment}
-            avatar_url={item.user.photo} // substitua se tiver avatar no backend
-            created_at={item.createdAt}
+            avatar_url={item.user.photo}
+            created_at={`Postado há ${formatDate(item.createdAt)}`}
             title={item.feedbackTitle}
             rating={item.userRating}
             likesCount={item.likesCount}
