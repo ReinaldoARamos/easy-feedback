@@ -1,6 +1,7 @@
 "use client";
 import { Clock, Star, ThumbsUpIcon, X } from "lucide-react";
 import { Dialog } from "radix-ui";
+import { useState } from "react";
 /* eslint-disable @next/next/no-img-element */
 
 interface FeecbackCardProps {
@@ -21,6 +22,31 @@ export function FeedbackCard({
   title,
   author,
 }: FeecbackCardProps) {
+  const [like, setLike] = useState<boolean>(false);
+
+  function TesteLike(like: boolean) {
+    setLike(!like);
+    console.log(like);
+  }
+  /*
+    async function onSubmit(data: FeedbackData) {
+      try {
+        await api.post("/feedbackpost", {
+          title: data.title,
+          comment: data.comment,
+          userRating: data.userRating,
+          userId: 1, //id defaultr pra nao dar ruim no banco
+        });
+  
+        console.log("Feedback cadastrado com sucesso!");
+      } catch (err) {
+        console.error(" Erro ao cadastrar:", err);
+      }
+      setValue("comment", "")
+          setValue("title", "")
+              setValue("userRating", 0)
+    }
+  */
   return (
     <Dialog.Root>
       <div className="text-black   w-full rounded-sm  bg-white py-2 px-2">
@@ -58,11 +84,23 @@ export function FeedbackCard({
             </div>
           </div>
           <div className="flex flex-col gap-2 text-black text-xs">
-            <span className="flex gap-1 items-center leading-none">
-              <ThumbsUpIcon size={12} /> {likesCount}
-            </span>
+            {like ? (
+              <span className="flex gap-1 items-center leading-none hover:cursor-pointer ">
+                <ThumbsUpIcon
+                  fill="blue"
+                  onClick={() => TesteLike(like)}
+                  size={12}
+                />{" "}
+                {likesCount}
+              </span>
+            ) : (
+              <span className="flex gap-1 hover:cursor-pointer  items-center leading-none">
+                <ThumbsUpIcon onClick={() => TesteLike(like)} size={12} />{" "}
+                {likesCount}
+              </span>
+            )}
 
-            <span className="flex gap-1 items-center leading-none">
+            <span className="flex gap-1  items-center leading-none">
               <Star size={12} /> Nota : {rating}
             </span>
           </div>
