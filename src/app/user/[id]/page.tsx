@@ -2,6 +2,7 @@
 "use client";
 
 import { FeedbackCard } from "@/app/components/FeedbackCard";
+import { formatDate } from "@/app/utils/DataConverterFunction";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 
@@ -53,7 +54,7 @@ export default function User() {
                 key={item.id}
                 comment={item.comment}
                 avatar_url={item.user.photo}
-                created_at={item.createdAt}
+       created_at={`Postado há ${formatDate(item.createdAt)}`}
                 title={item.feedbackTitle}
                 rating={item.userRating}
                 likesCount={item.likesCount} author={item.user.name}              />

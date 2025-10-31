@@ -2,6 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { FeedbackCard } from "../components/FeedbackCard";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { formatDate } from "../utils/DataConverterFunction";
 
 const COLORS = ["#22c55e", "#FFFF00", "#ef4444"]; // verde, cinza, vermelho
 const pieData = [
@@ -65,7 +66,7 @@ export default function Dashboard() {
               key={item.id}
               comment={item.comment}
               avatar_url={item.user.photo} // substitua se tiver avatar no backend
-              created_at={item.createdAt}
+              created_at={`Postado há ${formatDate(item.createdAt)}`}
               title={item.feedbackTitle}
               rating={item.userRating}
               likesCount={item.likesCount}
