@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FeedbackCard } from "../components/FeedbackCard";
 
 import { formatDate } from "../utils/DataConverterFunction";
-import { PieCharts } from "./components/PieChart";
+import { FeedbackPieChart } from "./components/PieChart";
 
 interface FeedbackDataProps {
   id: string;
@@ -35,7 +35,7 @@ export default function Dashboard() {
         <h1 className="text-[32px] font-bold text-black">
           Gráfico dos feedbacks
         </h1>
-        <PieCharts />
+<FeedbackPieChart />
         <div className="pt-20 flex-col">
           <h1 className="text-[32px] font-bold text-black">
             Top 5 Feedback mais votados
