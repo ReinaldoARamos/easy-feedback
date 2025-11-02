@@ -50,14 +50,17 @@ export default function User() {
         <div className="pt-4  gap-3 flex flex-col ">
           {data?.map((item) => {
             return (
-              <FeedbackCard
-                key={item.id}
-                comment={item.comment}
-                avatar_url={item.user.photo}
-       created_at={`Postado há ${formatDate(item.createdAt)}`}
-                title={item.feedbackTitle}
-                rating={item.userRating}
-                likesCount={item.likesCount} author={item.user.name}              />
+             <FeedbackCard
+              key={item.id}
+              comment={item.comment}
+              avatar_url={item.user.photo} // substitua se tiver avatar no backend
+              created_at={`Postado há ${formatDate(item.createdAt)}`}
+              title={item.feedbackTitle}
+              rating={item.userRating}
+              likesCount={item.likesCount}
+              author={item.user.name} 
+              id={item.id}    
+                      />
             );
           })}
         </div>
