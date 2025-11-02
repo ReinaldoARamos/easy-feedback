@@ -30,9 +30,11 @@ export default function Dashboard() {
     queryKey: ["feedbacks"],
     queryFn: () =>
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`).then((res) =>
+       
         res.json()
       ),
   });
+   console.log(data)
   return (
     <div className=" flex flex-col min-h-screen mr-5 my-3 bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
@@ -70,8 +72,9 @@ export default function Dashboard() {
               title={item.feedbackTitle}
               rating={item.userRating}
               likesCount={item.likesCount}
-              author={item.user.name}
-            />
+              author={item.user.name} 
+              id={item.id}    
+                      />
           ))}
         </div>
       </div>
