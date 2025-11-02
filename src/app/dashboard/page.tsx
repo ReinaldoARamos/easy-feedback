@@ -1,15 +1,9 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { FeedbackCard } from "../components/FeedbackCard";
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
-import { formatDate } from "../utils/DataConverterFunction";
 
-const COLORS = ["#22c55e", "#FFFF00", "#ef4444"]; // verde, cinza, vermelho
-const pieData = [
-  { name: "Positivos", value: 120 },
-  { name: "Neutros", value: 45 },
-  { name: "Negativos", value: 30 },
-];
+import { formatDate } from "../utils/DataConverterFunction";
+import { PieCharts } from "./components/PieChart";
 
 interface FeedbackDataProps {
   id: string;
@@ -19,7 +13,7 @@ interface FeedbackDataProps {
   feedbackTitle: string;
   userRating: number;
   likesCount: number;
-  isLiked: boolean
+  isLiked: boolean;
 
   user: {
     name: string;
@@ -31,33 +25,17 @@ export default function Dashboard() {
     queryKey: ["feedbacks"],
     queryFn: () =>
       fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedbackTopFive`).then((res) =>
-       
         res.json()
       ),
   });
-   console.log(data)
+  console.log(data);
   return (
     <div className=" flex flex-col min-h-screen mr-5 my-3 bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
         <h1 className="text-[32px] font-bold text-black">
           Gráfico dos feedbacks
         </h1>
-        <PieChart width={400} height={300}>
-          <Pie
-            data={pieData}
-            cx="50%"
-            cy="50%"
-            labelLine={false}
-            outerRadius={100}
-            dataKey="value"
-          >
-            {pieData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
+        <PieCharts />
         <div className="pt-20 flex-col">
           <h1 className="text-[32px] font-bold text-black">
             Top 5 Feedback mais votados
@@ -74,8 +52,9 @@ export default function Dashboard() {
               rating={item.userRating}
               likesCount={item.likesCount}
               author={item.user.name}
-              id={item.id} 
-              isLiked={item.isLiked}                      />
+              id={item.id}
+              isLiked={item.isLiked}
+            />
           ))}
         </div>
       </div>
