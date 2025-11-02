@@ -19,6 +19,7 @@ interface FeedbackDataProps {
   feedbackTitle: string;
   userRating: number;
   likesCount: number;
+  isLiked: boolean
 
   user: {
     name: string;
@@ -29,7 +30,7 @@ export default function Dashboard() {
   const { isPending, error, data } = useQuery<FeedbackDataProps[]>({
     queryKey: ["feedbacks"],
     queryFn: () =>
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`).then((res) =>
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedbackTopFive`).then((res) =>
        
         res.json()
       ),
@@ -72,9 +73,9 @@ export default function Dashboard() {
               title={item.feedbackTitle}
               rating={item.userRating}
               likesCount={item.likesCount}
-              author={item.user.name} 
-              id={item.id}    
-                      />
+              author={item.user.name}
+              id={item.id} 
+              isLiked={item.isLiked}                      />
           ))}
         </div>
       </div>

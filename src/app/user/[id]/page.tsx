@@ -14,6 +14,7 @@ interface FeedbackDataProps {
   feedbackTitle: string;
   userRating: number;
   likesCount: number;
+  isLiked: boolean
 
   user: {
     name: string;
@@ -50,7 +51,7 @@ export default function User() {
         <div className="pt-4  gap-3 flex flex-col ">
           {data?.map((item) => {
             return (
-             <FeedbackCard
+                       <FeedbackCard
               key={item.id}
               comment={item.comment}
               avatar_url={item.user.photo} // substitua se tiver avatar no backend
@@ -58,9 +59,9 @@ export default function User() {
               title={item.feedbackTitle}
               rating={item.userRating}
               likesCount={item.likesCount}
-              author={item.user.name} 
-              id={item.id}    
-                      />
+              author={item.user.name}
+              id={item.id} 
+              isLiked={item.isLiked}                      />
             );
           })}
         </div>

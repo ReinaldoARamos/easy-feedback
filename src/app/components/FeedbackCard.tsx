@@ -15,10 +15,12 @@ interface FeecbackCardProps {
   rating: number;
   likesCount: number;
   author: string;
+  isLiked: boolean;
 }
 export function FeedbackCard({
   avatar_url,
   created_at,
+  isLiked,
   id,
   comment,
   likesCount,
@@ -26,11 +28,12 @@ export function FeedbackCard({
   title,
   author,
 }: FeecbackCardProps) {
-  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [isLikeActive, setIsLiked] = useState<boolean>(isLiked);
   const [likesCounter, setLikesCount] = useState<number>(likesCount);
 
   function handleLike() {
     setIsLiked(true);
+    console.log(isLikeActive);
     //pega o valor atual que ta no count e adiciona 1
     setLikesCount((prev) => prev + 1);
   }
@@ -38,6 +41,7 @@ export function FeedbackCard({
   function handleDislike() {
     //pega o valor atual que ta no count e remove 1
     setIsLiked(false);
+    console.log(isLikeActive);
     setLikesCount((prev) => prev - 1);
   }
 
@@ -78,7 +82,7 @@ export function FeedbackCard({
             </div>
           </div>
           <div className="flex flex-col gap-2 text-black text-xs">
-            {isLiked ? (
+            {isLikeActive ? (
               <span className="flex gap-1 items-center leading-none hover:cursor-pointer  ">
                 <RemoveLikeButton id={id} onDislike={handleDislike} />
                 {likesCounter}
