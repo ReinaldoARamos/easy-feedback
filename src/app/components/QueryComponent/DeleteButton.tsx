@@ -1,15 +1,36 @@
-import { Trash } from "lucide-react"
+"use client";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-interface DeleteButtonProps{
-    id: string
+interface DeleteButtonProps {
+  id: string;
 }
-export function DeleteButton({id} : DeleteButtonProps) {
-    function testeDelete(id:string) {
-    console.log("teste " + id) 
-  }
-    return (
-          <button className="flex gap-1  transition-all duration-300 items-center hover:cursor-pointer hover:text-red-500 leading-none">
-              <Trash   onClick={() => testeDelete(id)} size={12} />
-            </button>
-    )
+
+export function DeleteButton({ id }: DeleteButtonProps) {
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/feedbackDelete?feedbackId=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!res.ok) throw new Error("Erro ao deletar feedback");
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+    },
+  });
+
+  return (
+    <button
+      onClick={() => mutation.mutate()}
+      className="text-red-600 hover:text-red-800 transition-all"
+    >
+      🗑️
+    </button>
+  );
 }
