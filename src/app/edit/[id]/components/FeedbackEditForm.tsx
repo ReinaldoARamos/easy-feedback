@@ -16,7 +16,7 @@ type FeedbackData = z.infer<typeof feedbackSchema>;
 export function EditFeedbackForm() {
   async function onSubmit(data: FeedbackData) {
     try {
-      await api.post("/feedbackpost", {
+      await api.patch(`/feedbackEditFeedback?id=${23}`, {
         title: data.title,
         comment: data.comment,
         userRating: data.userRating,
@@ -27,9 +27,9 @@ export function EditFeedbackForm() {
     } catch (err) {
       console.error(" Erro ao cadastrar:", err);
     }
-    setValue("comment", "")
-        setValue("title", "")
-            setValue("userRating", 0)
+    setValue("comment", "");
+    setValue("title", "");
+    setValue("userRating", 0);
   }
 
   const {
