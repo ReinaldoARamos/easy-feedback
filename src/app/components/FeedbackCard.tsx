@@ -1,9 +1,11 @@
 "use client";
-import { Clock, Star, ThumbsUpIcon, X } from "lucide-react";
+import { Clock, Pen, Pencil, Star, ThumbsUpIcon, Trash, X } from "lucide-react";
 import { Dialog } from "radix-ui";
 import { useState } from "react";
 import { LikeButton } from "./LikeButton";
 import { RemoveLikeButton } from "./RemoveLikeButton";
+import { DeleteButton } from "./QueryComponent/DeleteButton";
+import { EditButton } from "./QueryComponent/EditButton";
 /* eslint-disable @next/next/no-img-element */
 
 interface FeecbackCardProps {
@@ -45,9 +47,15 @@ export function FeedbackCard({
     setLikesCount((prev) => prev - 1);
   }
 
+  function TestedeEdit(id: string) {
+    console.log("teste " + id);
+  }
+
+  const SessionId: number = 1;
+
   return (
     <Dialog.Root>
-      <div className="text-black   w-full rounded-sm  bg-white py-2 px-2">
+      <div className="text-black  relative  w-full rounded-sm  bg-white py-2 px-2">
         <div className="flex gap-2.5 w-full md:flex-row flex-col  justify-between md:items-center ">
           <div className="flex gap-2.5 flex-col md:flex-row md:item-center ">
             <img
@@ -81,7 +89,7 @@ export function FeedbackCard({
               </span>
             </div>
           </div>
-          <div className="flex flex-col gap-2 text-black text-xs">
+          <div className="flex flex-col lg:flex-row  lg:pr-3 lg:bottom-1    lg:absolute  lg:right-0   gap-2 text-black text-xs">
             {isLikeActive ? (
               <span className="flex gap-1 items-center leading-none hover:cursor-pointer  ">
                 <RemoveLikeButton id={id} onDislike={handleDislike} />
@@ -99,6 +107,16 @@ export function FeedbackCard({
               <Star size={12} /> Nota : {rating}
             </span>
           </div>
+          {/*Editar e deletar*/}
+          {SessionId == 1 ? (
+            <div className="flex   pr-3 bottom-auto    top-1 absolute  right-0   gap-3 text-black text-xs">
+              <EditButton id={id} />
+
+              <DeleteButton id={id} />
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
 
