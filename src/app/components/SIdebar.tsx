@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import {
   Home,
@@ -6,16 +7,20 @@ import {
   MessageSquareMore,
   User,
 } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Sidebar() {
+    const pathname = usePathname();
+
+  // Defina rotas onde o header/sidebar NÃO devem aparecer
+  const hideHeaderAndSidebar = pathname === "/login";
   return (
-    <div
-      className="fixed top-3 left-5 bottom-3 w-64 hidden
-                 bg-gradient-to-b from-[rgba(41,33,162,0.5)]
-                 via-[rgba(41,33,162,1)]
-                 to-[#4B17E8]
-                 rounded-lg lg:flex flex-col"
-    >
+ <div
+  className={`${
+    hideHeaderAndSidebar ? "hidden" : "hidden lg:fixed top-3 left-5 bottom-3 w-64 bg-gradient-to-b from-[rgba(41,33,162,0.5)] via-[rgba(41,33,162,1)] to-[#4B17E8] rounded-lg lg:flex flex-col"
+  }`}
+>
+    
       {/* Topo: Logo */}
       <div className="flex justify-center py-6 items-center gap-1">
         <MessageSquareMore size={24} className="text-[#793A86]" />

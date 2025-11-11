@@ -1,15 +1,11 @@
-
 import type { Metadata } from "next";
-
-
 
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "./components/SIdebar";
 import { Header } from "./components/Header";
 import { QueryComponent } from "./components/QueryComponent/Query";
-
-
+import { AuthProvider } from "@/app/providers/auth";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -29,14 +25,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} antialiased`}>
-        <Sidebar />
-        {/* container para o conteúdo */}
-        <main className="lg:ml-[276px] pl-4">
-          <Header />
-       <QueryComponent >
-        {children}
-       </QueryComponent>
-        </main>
+        <AuthProvider>
+          <Sidebar />
+          {/* container para o conteúdo */}
+          <main className="lg:ml-[276px] pl-4">
+
+            <Header />
+
+            <QueryComponent>{children}</QueryComponent>
+
+          </main>
+        </AuthProvider>
+
       </body>
     </html>
   );

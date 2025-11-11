@@ -1,13 +1,14 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useParams, usePathname } from "next/navigation";
 import { HamguerguerMenu } from "./DropdownMenu";
 
 export function Header() {
+  const { data: session } = useSession();
   const params = useParams();
-  const userId = params.id as string; // 👈 pega o ID da URL (ex: /user/123)
+  const userId = params.id as string;
 
   const pathname = usePathname();
 
@@ -20,10 +21,16 @@ export function Header() {
     `/${userId}`,
     ""
   );
-  console.log(title);
+  const hideHeaderAndSidebar = pathname === "/login";
 
   return (
-    <div className="mr-5 flex justify-between items-center bg-slate-200 py-3 px-3 mt-3">
+    <div
+      className={
+        hideHeaderAndSidebar
+          ? "hidden "
+          : "mr-5 flex justify-between items-center bg-slate-200 py-3 px-3 mt-3"
+      }
+    >
       <div className="flex gap-2 items-center">
         {" "}
         <HamguerguerMenu />
@@ -44,7 +51,7 @@ export function Header() {
           </>
         )}
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3" onClick={() => signIn("github")}>
           <div className="w-[60px] h-[60px] rounded-full overflow-hidden">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwmfjfadySHoUs3-FxWj6ymYxvyYg04xXwBQ&s"

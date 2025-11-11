@@ -1,5 +1,6 @@
 "use client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Trash } from "lucide-react";
 
 interface DeleteButtonProps {
   id: string;
@@ -28,9 +29,10 @@ export function DeleteButton({ id }: DeleteButtonProps) {
   return (
     <button
       onClick={() => mutation.mutate()}
-      className="text-red-600 hover:text-red-800 transition-all"
+      className="text-red-600 hover:text-red-800 hover:cursor-pointer transition-all"
     >
-      🗑️
+        <Trash size={12} />
+
     </button>
   );
 }

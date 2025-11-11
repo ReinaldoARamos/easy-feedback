@@ -3,7 +3,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { api } from "@/app/lib/api";
-import { useParams } from "next/navigation";
+import { useParams , useRouter} from "next/navigation";
+
 
 export const feedbackSchema = z.object({
   id: z.number(),
@@ -15,6 +16,7 @@ export const feedbackSchema = z.object({
 type FeedbackData = z.infer<typeof feedbackSchema>;
 
 export function EditFeedbackForm() {
+    const router = useRouter()
       const params = useParams(); // parametro da url
   const id = Number(params.id); // convertendo o id pra numero pra nao dar erro de tipagem
   async function onSubmit(data: FeedbackData) {
@@ -33,6 +35,7 @@ export function EditFeedbackForm() {
     setValue("comment", "");
     setValue("title", "");
     setValue("userRating", 0);
+    router.push('/')
   }
 
   const {
