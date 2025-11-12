@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { api } from "@/app/lib/api";
+import { useSession } from "next-auth/react";
 
 export const feedbackSchema = z.object({
   id: z.number(),
@@ -20,7 +21,7 @@ export function NewFeedbackForm() {
         title: data.title,
         comment: data.comment,
         userRating: data.userRating,
-        userId: 1, //id defaultr pra nao dar ruim no banco
+        userId: data, //id defaultr pra nao dar ruim no banco
       });
 
       console.log("Feedback cadastrado com sucesso!");
@@ -31,7 +32,7 @@ export function NewFeedbackForm() {
         setValue("title", "")
             setValue("userRating", 0)
   }
-
+const {data} = useSession()
   const {
     register,
     setValue,
@@ -42,7 +43,7 @@ export function NewFeedbackForm() {
     resolver: zodResolver(feedbackSchema),
     defaultValues: {
       userRating: 0,
-      id: 1,
+      id: Number(data?.user.id)
     },
   });
 

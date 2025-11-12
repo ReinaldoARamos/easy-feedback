@@ -51,26 +51,28 @@ export function Header() {
           </>
         )}
 
-        <div className="flex items-center gap-3" onClick={() => signIn("github")}>
-          <div className="w-[60px] h-[60px] rounded-full overflow-hidden">  
-           {session ? (
-             <img
-              src={session?.user.image}
+        <div
+          className="flex items-center gap-3"
+          onClick={() => signIn("github")}
+        >
+          <div className="w-[60px] h-[60px] rounded-full overflow-hidden">
+            <img
+              src={
+                session?.user?.image ??
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8BSDMyxsc8n91H1uoyEn9gpZLhzWGelzhUA&s"
+              }
               alt=""
               className="object-cover w-full h-full"
-            />
-           ) : (
-              <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8BSDMyxsc8n91H1uoyEn9gpZLhzWGelzhUA&s"
-              alt=""
-              className="object-cover w-full h-full"
-            />
-           )}
+              />
           </div>
 
           <div className="flex flex-col justify-center">
-            <span className="text-xs font-bold text-black">{session?.user.name}</span>
-                 <span className="text-xs font-bold text-black">{session?.user.id}</span>
+            <span className="text-xs font-bold text-black">
+              {session?.user.name}
+            </span>
+            <span className="text-xs font-bold text-black">
+              {session?.user.id}
+            </span>
           </div>
         </div>
       </div>
