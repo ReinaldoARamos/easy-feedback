@@ -8,6 +8,7 @@ import {
   User,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 export function Sidebar() {
     const pathname = usePathname();
@@ -61,8 +62,9 @@ export function Sidebar() {
           </Link>
         </div>
 
-        <span className="flex items-center w-full max-w-[150px] group  gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal">
+        <span   onClick={() => {signOut()}} className="flex items-center w-full max-w-[150px] group  gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal">
           <LogOut
+        
             size={16}
             className="w-6 flex-shrink-0 group-hover:text-red-600 transition-all duration-300"
           />
