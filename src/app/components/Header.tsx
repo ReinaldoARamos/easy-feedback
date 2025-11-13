@@ -1,15 +1,16 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/react";
+
 import { useParams, usePathname } from "next/navigation";
 import { HamguerguerMenu } from "./DropdownMenu";
+import { useSession } from "next-auth/react";
 
 export function Header() {
-  const { data: session } = useSession();
+
   const params = useParams();
   const userId = params.id as string;
-
+  const { data: session } = useSession();
   const pathname = usePathname();
 
   const capitalize = (str: string) => {
@@ -53,7 +54,7 @@ export function Header() {
 
         <div
           className="flex items-center gap-3"
-          onClick={() => signIn("github")}
+         
         >
           <div className="w-[60px] h-[60px] rounded-full overflow-hidden">
             <img
