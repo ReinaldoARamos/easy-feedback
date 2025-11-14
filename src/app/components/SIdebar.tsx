@@ -8,10 +8,11 @@ import {
   User,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 export function Sidebar() {
     const pathname = usePathname();
+    const { data : userdata} = useSession()
 
   // Defina rotas onde o header/sidebar NÃO devem aparecer
   const hideHeaderAndSidebar = pathname === "/login";
@@ -54,7 +55,7 @@ export function Sidebar() {
           </Link>
 
           <Link
-            href={`/user/${1}`}
+            href={`/user/${userdata?.user.id}`}
             className="flex items-center w-full max-w-[150px] gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
           >
             <User size={16} className="w-6 flex-shrink-0" />

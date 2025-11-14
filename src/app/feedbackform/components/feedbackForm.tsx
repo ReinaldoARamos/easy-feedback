@@ -6,7 +6,7 @@ import { api } from "@/app/lib/api";
 import { useSession } from "next-auth/react";
 
 export const feedbackSchema = z.object({
-  id: z.number(),
+  
   title: z.string(),
   comment: z.string().min(1).max(300),
   userRating: z.number().min(1).max(10),
@@ -15,13 +15,15 @@ export const feedbackSchema = z.object({
 type FeedbackData = z.infer<typeof feedbackSchema>;
 
 export function NewFeedbackForm() {
+      const session = useSession()
+
   async function onSubmit(data: FeedbackData) {
     try {
       await api.post("/feedbackpost", {
         title: data.title,
         comment: data.comment,
         userRating: data.userRating,
-        userId: data, //id defaultr pra nao dar ruim no banco
+        userId: Number(session.data?.user.id)
       });
 
       console.log("Feedback cadastrado com sucesso!");
@@ -32,7 +34,7 @@ export function NewFeedbackForm() {
         setValue("title", "")
             setValue("userRating", 0)
   }
-const {data} = useSession()
+
   const {
     register,
     setValue,
@@ -43,7 +45,7 @@ const {data} = useSession()
     resolver: zodResolver(feedbackSchema),
     defaultValues: {
       userRating: 0,
-      id: Number(data?.user.id)
+  
     },
   });
 

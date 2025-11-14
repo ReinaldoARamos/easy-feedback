@@ -4,6 +4,7 @@
 import { FeedbackCard } from "@/app/components/FeedbackCard";
 import { formatDate } from "@/app/utils/DataConverterFunction";
 import { useQuery } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
@@ -27,32 +28,33 @@ export default function User() {
   const userId = params.id as string; // 👈 pega o ID da URL (ex: /user/123)
   const [page, setPage] = useState<number>(1);
   const perpage = 6;
-  const { isPending, error, data } = useQuery({
+  const { data } = useQuery({
     queryKey: ["feedbacks", page],
     queryFn: () =>
       fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/user-feedback?userId=${userId}&page=${page}&perPage=${perpage}`
       ).then((res) => res.json()),
-      
-  }
+  });
 
-)
-  
-  console.log( data)
+  console.log(data);
 
   const totalPages = Math.ceil(data?.totalCount / perpage);
-
+  const session = useSession();
 
   return (
     <div className=" mr-5  flex flex-col min-h-screen  my-3  bg-slate-200 ">
       <div className="pt-9  px-4  gap-3 flex flex-col ">
-        <h1 className="text-[32px] font-bold text-black">Reinaldo Ramos</h1>
-
+        <h1 className="text-[32px] font-bold text-black">
+          {session.data?.user.name}
+        </h1>
+     
         <img
           width={264}
           height={264}
+
+            
           alt=""
-          src="https://preview.redd.it/neaijti7dns91.png?width=921&format=png&auto=webp&s=f172c0f39bdb89e497786744b06e3567f92d437f"
+          src={session.data?.user.image}
           className="rounded-md object-cover flex-shrink-0"
         />
         <div className="pt-20 flex-col">
@@ -60,19 +62,19 @@ export default function User() {
         </div>
         <div className="pt-4  gap-3 flex flex-col ">
           {data?.feedbacks?.map((item: FeedbackDataProps) => (
-  <FeedbackCard
-    key={item.id}
-    comment={item.comment}
-    avatar_url={item.user.photo}
-    created_at={`Postado há ${formatDate(item.createdAt)}`}
-    title={item.feedbackTitle}
-    rating={item.userRating}
-    likesCount={item.likesCount}
-    author={item.user.name}
-    id={item.id}
-    isLiked={item.isLiked}
-  />
-))}
+            <FeedbackCard
+              key={item.id}
+              comment={item.comment}
+              avatar_url={item.user.photo}
+              created_at={`Postado há ${formatDate(item.createdAt)}`}
+              title={item.feedbackTitle}
+              rating={item.userRating}
+              likesCount={item.likesCount}
+              author={item.user.name}
+              id={item.id}
+              isLiked={item.isLiked}
+            />
+          ))}
         </div>
       </div>
       <div className="flex items-center justify-center gap-2 pb-3 text-black mt-auto">
