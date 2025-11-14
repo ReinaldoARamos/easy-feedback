@@ -42,12 +42,16 @@ export function Header() {
           <></>
         ) : (
           <>
-            <Link
-              href={"/feedbackform"}
-              className="bg-purple-500 text-white hidden lg:block rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
-            >
-              Novo Feedback +
-            </Link>
+            {!session ? (
+              <></>
+            ) : (
+              <Link
+                href={"/feedbackform"}
+                className="bg-purple-500 text-white hidden lg:block rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
+              >
+                Novo Feedback +
+              </Link>
+            )}
           </>
         )}
 
