@@ -1,5 +1,5 @@
 "use client";
- 
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
 import { useParams, usePathname } from "next/navigation";
@@ -7,7 +7,6 @@ import { HamguerguerMenu } from "./DropdownMenu";
 import { useSession } from "next-auth/react";
 
 export function Header() {
-
   const params = useParams();
   const userId = params.id as string;
   const { data: session } = useSession();
@@ -52,16 +51,26 @@ export function Header() {
           </>
         )}
 
-        <div
-          className="flex items-center gap-3"
-         
-        >
-         <Link
+        <div className="flex items-center gap-3">
+          {!session ? (
+            <Link
               href={"/login"}
               className="bg-purple-500 text-white hidden lg:block rounded-lg py-2 px-6 hover:scale-105 transition-transform duration-300 hover:cursor-pointer font-bold"
             >
               Login
             </Link>
+          ) : (
+            <div className="w-[60px] h-[60px] rounded-full overflow-hidden">
+              <img
+                src={
+                  session?.user?.image ??
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8BSDMyxsc8n91H1uoyEn9gpZLhzWGelzhUA&s"
+                }
+                alt=""
+                className="object-cover w-full h-full"
+              />
+            </div>
+          )}
 
           <div className="flex flex-col justify-center">
             <span className="text-xs font-bold text-black">
