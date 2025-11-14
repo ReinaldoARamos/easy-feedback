@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import Link from "next/link";
 import {
   Home,
@@ -11,18 +11,19 @@ import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 
 export function Sidebar() {
-    const pathname = usePathname();
-    const { data : userdata} = useSession()
+  const pathname = usePathname();
+  const { data: userdata } = useSession();
 
   // Defina rotas onde o header/sidebar NÃO devem aparecer
   const hideHeaderAndSidebar = pathname === "/login";
   return (
- <div
-  className={`${
-    hideHeaderAndSidebar ? "hidden" : "hidden lg:fixed top-3 left-5 bottom-3 w-64 bg-gradient-to-b from-[rgba(41,33,162,0.5)] via-[rgba(41,33,162,1)] to-[#4B17E8] rounded-lg lg:flex flex-col"
-  }`}
->
-    
+    <div
+      className={`${
+        hideHeaderAndSidebar
+          ? "hidden"
+          : "hidden lg:fixed top-3 left-5 bottom-3 w-64 bg-gradient-to-b from-[rgba(41,33,162,0.5)] via-[rgba(41,33,162,1)] to-[#4B17E8] rounded-lg lg:flex flex-col"
+      }`}
+    >
       {/* Topo: Logo */}
       <div className="flex justify-center py-6 items-center gap-1">
         <MessageSquareMore size={24} className="text-[#793A86]" />
@@ -54,18 +55,26 @@ export function Sidebar() {
             <span className="flex-1 text-left">Dashboard</span>
           </Link>
 
-          <Link
-            href={`/user/${userdata?.user.id}`}
-            className="flex items-center w-full max-w-[150px] gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
-          >
-            <User size={16} className="w-6 flex-shrink-0" />
-            <span className="flex-1 text-left">Usuário</span>
-          </Link>
+          {userdata ? (
+            <Link
+              href={`/user/${userdata?.user.id}`}
+              className="flex items-center w-full max-w-[150px] gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
+            >
+              <User size={16} className="w-6 flex-shrink-0" />
+              <span className="flex-1 text-left">Usuário</span>
+            </Link>
+          ) : (
+            <></>
+          )}
         </div>
 
-        <span   onClick={() => {signOut()}} className="flex items-center w-full max-w-[150px] group  gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal">
+        <span
+          onClick={() => {
+            signOut();
+          }}
+          className="flex items-center w-full max-w-[150px] group  gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
+        >
           <LogOut
-        
             size={16}
             className="w-6 flex-shrink-0 group-hover:text-red-600 transition-all duration-300"
           />

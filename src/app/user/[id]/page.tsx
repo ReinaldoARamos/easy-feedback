@@ -6,7 +6,8 @@ import { formatDate } from "@/app/utils/DataConverterFunction";
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface FeedbackDataProps {
   id: string;
@@ -24,6 +25,7 @@ interface FeedbackDataProps {
   };
 }
 export default function User() {
+  const router = useRouter();
   const params = useParams();
   const userId = params.id as string; // 👈 pega o ID da URL (ex: /user/123)
   const [page, setPage] = useState<number>(1);
@@ -41,55 +43,62 @@ export default function User() {
   const totalPages = Math.ceil(data?.totalCount / perpage);
   const session = useSession();
 
-  return (
-    <div className=" mr-5  flex flex-col min-h-screen  my-3  bg-slate-200 ">
-      <div className="pt-9  px-4  gap-3 flex flex-col ">
-        <h1 className="text-[32px] font-bold text-black">
-          {session.data?.user.name}
-        </h1>
-     
-        <img
-          width={264}
-          height={264}
+  useEffect(() => {
+    if (session.status === "unauthenticated") {
+      router.push("/");
+    }
+  });
+  if (session.status === `loading`) {
+    return <div>Loading</div>;
+  } else {
+    return (
+      <div className=" mr-5  flex flex-col min-h-screen  my-3  bg-slate-200 ">
+        <div className="pt-9  px-4  gap-3 flex flex-col ">
+          <h1 className="text-[32px] font-bold text-black">
+            {session.data?.user.name}
+          </h1>
 
-            
-          alt=""
-          src={session.data?.user.image}
-          className="rounded-md object-cover flex-shrink-0"
-        />
-        <div className="pt-20 flex-col">
-          <h1 className="text-[32px] font-bold text-black">Meus feedbacks</h1>
+          <img
+            width={264}
+            height={264}
+            alt=""
+            src={session.data?.user.image}
+            className="rounded-md object-cover flex-shrink-0"
+          />
+          <div className="pt-20 flex-col">
+            <h1 className="text-[32px] font-bold text-black">Meus feedbacks</h1>
+          </div>
+          <div className="pt-4  gap-3 flex flex-col ">
+            {data?.feedbacks?.map((item: FeedbackDataProps) => (
+              <FeedbackCard
+                key={item.id}
+                comment={item.comment}
+                avatar_url={item.user.photo}
+                created_at={`Postado há ${formatDate(item.createdAt)}`}
+                title={item.feedbackTitle}
+                rating={item.userRating}
+                likesCount={item.likesCount}
+                author={item.user.name}
+                id={item.id}
+                isLiked={item.isLiked}
+              />
+            ))}
+          </div>
         </div>
-        <div className="pt-4  gap-3 flex flex-col ">
-          {data?.feedbacks?.map((item: FeedbackDataProps) => (
-            <FeedbackCard
-              key={item.id}
-              comment={item.comment}
-              avatar_url={item.user.photo}
-              created_at={`Postado há ${formatDate(item.createdAt)}`}
-              title={item.feedbackTitle}
-              rating={item.userRating}
-              likesCount={item.likesCount}
-              author={item.user.name}
-              id={item.id}
-              isLiked={item.isLiked}
-            />
+        <div className="flex items-center justify-center gap-2 pb-3 text-black mt-auto">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+            <button
+              key={num}
+              onClick={() => setPage(num)}
+              className={`w-10 h-10 rounded-full grid place-items-center ${
+                num === page ? "bg-blue-600 text-white" : "bg-slate-500"
+              }`}
+            >
+              {num}
+            </button>
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-center gap-2 pb-3 text-black mt-auto">
-        {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
-          <button
-            key={num}
-            onClick={() => setPage(num)}
-            className={`w-10 h-10 rounded-full grid place-items-center ${
-              num === page ? "bg-blue-600 text-white" : "bg-slate-500"
-            }`}
-          >
-            {num}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+    );
+  }
 }
