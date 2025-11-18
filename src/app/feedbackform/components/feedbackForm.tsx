@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { api } from "@/app/lib/api";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export const feedbackSchema = z.object({
   
@@ -48,6 +50,12 @@ export function NewFeedbackForm() {
   
     },
   });
+  const router = useRouter()
+  useEffect( () => {
+    if(session.status === 'unauthenticated') {
+      router.push('/')
+    }
+  }, [session, router])
 
   const rating = watch("userRating");
 
