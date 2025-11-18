@@ -6,6 +6,7 @@ import { LikeButton } from "./LikeButton";
 import { RemoveLikeButton } from "./RemoveLikeButton";
 import { DeleteButton } from "./QueryComponent/DeleteButton";
 import { EditButton } from "./QueryComponent/EditButton";
+import { useSession } from "next-auth/react";
 /* eslint-disable @next/next/no-img-element */
 
 interface FeecbackCardProps {
@@ -18,6 +19,11 @@ interface FeecbackCardProps {
   likesCount: number;
   author: string;
   isLiked: boolean;
+
+  user: {
+
+    id: number
+  }
 }
 export function FeedbackCard({
   avatar_url,
@@ -29,6 +35,7 @@ export function FeedbackCard({
   rating,
   title,
   author,
+  user
 }: FeecbackCardProps) {
   const [isLikeActive, setIsLiked] = useState<boolean>(isLiked);
   const [likesCounter, setLikesCount] = useState<number>(likesCount);
@@ -51,7 +58,9 @@ export function FeedbackCard({
     console.log("teste " + id);
   }
 
-  const SessionId: number = 1;
+  const {data  :  userSession} = useSession()
+
+ 
 
   return (
     <Dialog.Root>
@@ -89,7 +98,8 @@ export function FeedbackCard({
               </span>
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row  lg:pr-3 lg:bottom-1    lg:absolute  lg:right-0   gap-2 text-black text-xs">
+         {userSession ? (
+           <div className="flex flex-col lg:flex-row  lg:pr-3 lg:bottom-1    lg:absolute  lg:right-0   gap-2 text-black text-xs">
             {isLikeActive ? (
               <span className="flex gap-1 items-center leading-none hover:cursor-pointer  ">
                 <RemoveLikeButton id={id} onDislike={handleDislike} />
@@ -107,8 +117,23 @@ export function FeedbackCard({
               <Star size={12} /> Nota : {rating}
             </span>
           </div>
+         ) : (
+            <div className="flex flex-col lg:flex-row  lg:pr-3 lg:bottom-1    lg:absolute  lg:right-0   gap-2 text-black text-xs">
+         
+              <span className="flex gap-1  items-center leading-none">
+                <ThumbsUpIcon size={12}/>
+
+                {likesCounter}
+              </span>
+            
+
+            <span className="flex gap-1  items-center leading-none">
+              <Star size={12} /> Nota : {rating}
+            </span>
+          </div>
+          )}
           {/*Editar e deletar*/}
-          {SessionId == 1 ? (
+          {Number(userSession?.user.id) == user.id ? (
             <div className="flex   pr-3 bottom-auto    top-1 absolute  right-0   gap-3 text-black text-xs">
               <EditButton id={id} />
 

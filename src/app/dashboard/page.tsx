@@ -1,7 +1,7 @@
 "use client";
 import { useQuery } from "@tanstack/react-query";
 import { FeedbackCard } from "../components/FeedbackCard";
-
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { formatDate } from "../utils/DataConverterFunction";
 import { FeedbackPieChart } from "./components/PieChart";
 
@@ -18,9 +18,11 @@ interface FeedbackDataProps {
   user: {
     name: string;
     photo: string;
+    id: string
   };
 }
 export default function Dashboard() {
+    const [parent, enableAnimations] = useAutoAnimate({ duration: 300 });
   const { isPending, error, data } = useQuery<FeedbackDataProps[]>({
     queryKey: ["feedbacks"],
     queryFn: () =>
@@ -41,7 +43,7 @@ export default function Dashboard() {
             Top 5 Feedback mais votados
           </h1>
         </div>
-        <div className="pt-4  gap-3 flex flex-col ">
+        <div className="pt-4  gap-3 flex flex-col " ref={parent}>
           {data?.map((item) => (
             <FeedbackCard
               key={item.id}
@@ -54,6 +56,9 @@ export default function Dashboard() {
               author={item.user.name}
               id={item.id}
               isLiked={item.isLiked}
+               user={{
+                id: Number(item.user.id)
+              }}         
             />
           ))}
         </div>

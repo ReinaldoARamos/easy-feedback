@@ -68,18 +68,22 @@ export function Sidebar() {
           )}
         </div>
 
-        <span
-          onClick={() => {
-            signOut();
-          }}
-          className="flex items-center w-full max-w-[150px] group  gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
-        >
-          <LogOut
-            size={16}
-            className="w-6 flex-shrink-0 group-hover:text-red-600 transition-all duration-300"
-          />
-          <span className="flex-1 text-left">Singout</span>
-        </span>
+        {userdata ? (
+          <span
+            onClick={() => {
+              signOut();
+            }}
+            className="flex items-center w-full max-w-[150px] group  gap-2 text-white hover:cursor-pointer transition-transform duration-300 transform hover:scale-105 font-normal"
+          >
+            <LogOut
+              size={16}
+              className="w-6 flex-shrink-0 group-hover:text-red-600 transition-all duration-300"
+            />
+            <span className="flex-1 text-left">Singout</span>
+          </span>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

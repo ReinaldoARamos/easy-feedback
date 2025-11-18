@@ -80,9 +80,7 @@ export function Header() {
             <span className="text-xs font-bold text-black">
               {session?.user.name}
             </span>
-            <span className="text-xs font-bold text-black">
-              {session?.user.id}
-            </span>
+          
           </div>
         </div>
       </div>

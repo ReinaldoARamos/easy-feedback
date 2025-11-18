@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 interface FeedbackDataProps {
   id: string;
@@ -22,10 +23,12 @@ interface FeedbackDataProps {
   user: {
     name: string;
     photo: string;
+    id: number
   };
 }
 export default function User() {
   const router = useRouter();
+    const [parent, enableAnimations] = useAutoAnimate({ duration: 300 });
   const params = useParams();
   const userId = params.id as string; // 👈 pega o ID da URL (ex: /user/123)
   const [page, setPage] = useState<number>(1);
@@ -68,7 +71,7 @@ export default function User() {
           <div className="pt-20 flex-col">
             <h1 className="text-[32px] font-bold text-black">Meus feedbacks</h1>
           </div>
-          <div className="pt-4  gap-3 flex flex-col ">
+          <div className="pt-4  gap-3 flex flex-col " ref={parent}>
             {data?.feedbacks?.map((item: FeedbackDataProps) => (
               <FeedbackCard
                 key={item.id}
@@ -80,8 +83,9 @@ export default function User() {
                 likesCount={item.likesCount}
                 author={item.user.name}
                 id={item.id}
-                isLiked={item.isLiked}
-              />
+                isLiked={item.isLiked} user={{
+                  id: item.user.id
+                }}              />
             ))}
           </div>
         </div>
