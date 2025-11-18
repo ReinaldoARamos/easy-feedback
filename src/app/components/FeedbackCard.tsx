@@ -54,9 +54,6 @@ export function FeedbackCard({
     setLikesCount((prev) => prev - 1);
   }
 
-  function TestedeEdit(id: string) {
-    console.log("teste " + id);
-  }
 
   const {data  :  userSession} = useSession()
 
